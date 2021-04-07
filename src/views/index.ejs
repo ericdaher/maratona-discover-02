@@ -32,11 +32,12 @@
           <img id="logo" src="/images/logo.svg" alt="Logo" />
           <span id="notification">
             <img src="/images/alert-octagon.svg" alt="Alerta" />
-            Você tem 2 horas livres no seu dia
+            <% if (indexProps.freeHours <= 0) { %> Você não tem horas livres no seu dia <% } else { %> Você tem <%=
+            indexProps.freeHours %> horas livres no seu dia <% } %>
           </span>
           <a href="/profile" id="avatar-profile">
-            <p><%= index_props.index.name %> <span>Ver perfil</span></p>
-            <img src="<%= index_props.index.avatar %> " />
+            <p><%= indexProps.index.name %> <span>Ver perfil</span></p>
+            <img src="<%= indexProps.index.avatar %> " />
           </a>
         </section>
 
@@ -47,15 +48,15 @@
 
           <div class="info">
             <div class="total">
-              <strong>12</strong>
+              <strong><%= indexProps.statusCount.total %> </strong>
               Projetos ao total
             </div>
             <div class="in-progress">
-              <strong>7</strong>
+              <strong><%= indexProps.statusCount.inProgress %></strong>
               Em andamento
             </div>
             <div class="finished">
-              <strong>4</strong>
+              <strong><%= indexProps.statusCount.done %></strong>
               Encerrados
             </div>
           </div>
@@ -74,14 +75,14 @@
         <h1 class="sr-only">Trabalhos</h1>
 
         <div class="cards">
-          <% index_props.jobs.forEach(job => { %>
+          <% indexProps.jobs.forEach(job => { %>
           <div class="card <%= job.status %>" data-id="<%= job.id %>">
             <div class="id column"><%= job.id %></div>
             <div class="name column"><%= job.name %></div>
             <div class="deadline column">
               <span>Prazo</span>
               <p>
-                <% if (job.status === "progress") { %> <%= job.remaining %> dias para a entrega <% } else { %> Prazo
+                <% if (job.status === "inProgress") { %> <%= job.remaining %> dias para a entrega <% } else { %> Prazo
                 encerrado <% } %>
               </p>
             </div>
